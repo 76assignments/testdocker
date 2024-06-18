@@ -23,7 +23,7 @@ jobs:
 
       - name: Download Flask Wheel
         run: |
-          pip download flask --only-binary=:all: --no-deps
+         pip download flask --only-binary=:all: --no-deps -d ./wheels
 
       - name: Create Release
         id: create_release
@@ -43,7 +43,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: *.whl
+          file: wheels/*
           tag: ${{ github.ref }}
           overwrite: true
           file_glob: true
