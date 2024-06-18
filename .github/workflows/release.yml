@@ -23,27 +23,13 @@ jobs:
 
       - name: Download Flask Wheel
         run: |
-         pip download flask --only-binary=:all:  -d ./wheels
+         pip download flask --only-binary=:all:  --no-deps -d ./wheels
 
-      # - name: Create Release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      #   with:
-      #     tag_name: t2
-      #     release_name: Release t2
-      #     body: |
-      #       Changes in this Release
-      #       - First Change
-      #       - Second Change
-      #     draft: false
-      #     prerelease: false
       - name: Create Release and Upload wheels to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: wheels/*
-          tag: t3
+          tag: {{ githun.ref }}
           overwrite: true
           file_glob: true
